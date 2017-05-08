@@ -1,0 +1,18 @@
+<div class="card">
+    <img class="card-img" src="{{ img }}"/>
+    <div class="card-name">
+        {{ name }}
+        <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+        <span class="card-stars">
+            {% for i in range(rating) %}
+            <span>&starf;</span>
+            {% endfor %}
+            {% for i in range(5 - rating) %}
+            <span>&star;</span>
+            {% endfor %}
+        </span>
+    </div>
+    <div class="card-car-model">{{ car_name }}</div>
+    <div class="card-free-seats">{{ seats_remaining }}</div>
+    <div class="card-pickup-time">{{ time }}</div>
+</div>

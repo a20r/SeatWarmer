@@ -1,0 +1,137 @@
+body {
+	margin: 0;
+	   // background: url(gray-wall-textured-background-hd.jpg);
+	 
+}
+.headerHolder {
+    //background-color: #e5e7ef;
+	border-bottom: 1px solid #7f7c7c;
+	box-shadow: 4px 1px 3px #888888;
+	height: 70px;
+}
+.headerBar {
+    height:36px;
+	max-width: 850px;
+    margin: auto;
+	line-height:  40px;
+	padding: 17px 0;
+	bottom: 0px;
+}
+body {
+	margin-top:0px;
+}
+#company {
+	color:#004c99;
+	margin-left:5px;
+	float: left;
+	font-size: 33px;
+	font-family: "Segoe UI";
+}
+#login {
+	font-size: 18px;
+	float: right;
+	line-height: 42px;
+	    bottom: 0px;
+		    margin-right: 5px;
+}
+.headerBar a{
+	text-decoration:none;
+}
+.container2{
+	max-width: 834px;
+	    margin: auto;
+		padding-top:30px;
+		    height: 100%
+}
+.rightContent, .leftContent {
+	display:block;
+	width:50%;
+	min-width:400px;
+}
+.rightContent {
+	float: right;
+	
+}
+.leftContent{
+	float: left;
+}
+.mainItem {
+	height: 30px;
+	margin: 10px 58px 10px 0;
+
+	padding: 20px;
+	font-size: 25px;
+
+}
+.mainItem a {
+	height: 100%;
+    width: 100%;
+    display: block;
+	text-decoration:none;
+	background-color: #f1f5ff;
+	padding: 20px;
+}
+.formItem {
+	height: 30px;
+	margin: 5px 58px 10px 0;
+	font-size: 20px;
+
+}   
+.tripItem {
+	height: 55px;
+	margin: 8px 0;
+	font-size: 22px;
+	line-height: 55px;
+
+}
+.tripItem a {
+	height: 100%;
+    width: 100%;
+    display: block;
+	text-decoration:none;
+	    padding-left: 5px;
+			//color:black
+}
+.tripStatus{
+	font-size: 14px;
+    color: black;
+}
+#map {
+	height:0px;
+	width=95%;
+}
+.tripItem :hover {
+	background-color: #f3f3f3;
+}
+.tripDate {
+	    float: right;
+		    margin-right: 25px;
+}
+.profValue {
+		    float: right;
+		    margin-right: 56px;
+}
+.profItem {
+	height: 30px;
+	margin: 10px 0;
+	font-size: 19px;
+	line-height: 30px;
+
+}
+.feedStar {
+	font-size:165%;
+	color:red;
+}
+.feedVal {
+	float: right;
+	margin-right: 40px;
+}
+.container form{
+	min-width:834px;
+}
+.container {
+	min-width:834px;
+	max-width: 834px;
+}
+
+
