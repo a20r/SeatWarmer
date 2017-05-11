@@ -1,5 +1,4 @@
 
-var being_shown = {};
 var data;
 var cities;
 var cur_res;
@@ -8,10 +7,6 @@ var directionsDisplay;
 var directionsService;
 var smokes = false;
 var stops = 3;
-
-var viewing_req_tab = false;
-var requested_trips = {};
-var requests = new Array();
 
 var stops_map = {
     "stops-any": 3,
@@ -62,23 +57,6 @@ var sorts = {
 
 var sort_func = undefined;
 
-$.extend({
-    getUrlVars: function() {
-        var vars = [], pair;
-        var pairs = window.location.search.substr(1).split('&');
-        for (var i = 0; i < pairs.length; i++) {
-            pair = pairs[i].split('=');
-            vars.push(pair[0]);
-            vars[pair[0]] = pair[1] &&
-                    decodeURIComponent(pair[1].replace(/\+/g, ' '));
-        }
-        return vars;
-    },
-    getUrlVar: function(name) {
-        return $.getUrlVars()[name];
-    }
-});
-
 function enable_filters()
 {
     $("#stops-filter a").click(function(e)
@@ -121,62 +99,42 @@ function initMap() {
 
 function hash_route_info(route_info)
 {
-    ori = route_info.ori.split(" ").join("-");
-    dst = route_info.dst.split(" ").join("-");
-
     return route_info.name + " " +
-        ori + " " + dst + " " +
+        route_info.ori + " " + route_info.dst + " " +
         route_info.day;
 }
 
 function hash_route_info_with_date(ri)
 {
-    ori = ri.ori.split(" ").join("-");
-    dst = ri.dst.split(" ").join("-");
-    return ori.split(",")[0] + "-" + dst.split(",")[0]
+    return ri.ori.split(",")[0] + "-" + ri.dst.split(",")[0]
         + "-" + ri.date.replace(/\//g, "-");
 }
 
-function add_request(route_info)
+function add_request(ri)
 {
-    // var requests = Cookies.getJSON("requests");
-    // route_info["date"] = $("#pickup-date").val();
-    // var ri_hash = hash_route_info(route_info);
-    // requests.push(ri_hash);
-    // Cookies.set("requests", requests);
-    // Cookies.set(ri_hash, route_info);
-
+    var requests = Cookies.getJSON("requests");
+    var route_info = $.extend({}, ri);
     route_info["date"] = $("#pickup-date").val();
-    console.log(route_info);
-    var ri_hash = hash_route_info_with_date(route_info);
-    if (!(ri_hash in requested_trips))
-    {
-        requested_trips[ri_hash] = new Array();
-    }
-
-    requested_trips[ri_hash].push(route_info);
-    requests.push(route_info);
+    var ri_hash = hash_route_info(route_info);
+    requests.push(ri_hash);
+    Cookies.set("requests", requests);
+    Cookies.set(ri_hash, route_info);
 }
 
 function remove_request(route_info)
 {
-    // var requests = Cookies.getJSON("requests");
-    // var ri_hash = hash_route_info(route_info);
-    // requests.splice(requests.indexOf(ri_hash), 1);
-    // Cookies.set("requests", requests);
-    // Cookies.remove(ri_hash);
-
-    var ri_hash = hash_route_info_with_date(route_info);
-    requested_trips[ri_hash].splice(
-            requested_trips[ri_hash].indexOf(route_info), 1);
-    requests.splice(requests.indexOf(route_info), 1);
-    return requested_trips[ri_hash].length;
+    var requests = Cookies.getJSON("requests");
+    var ri_hash = hash_route_info(route_info);
+    requests.splice(requests.indexOf(ri_hash), 1);
+    Cookies.set("requests", requests);
+    Cookies.remove(ri_hash);
 }
 
 function is_requested(route_info)
 {
-    // var requests = Cookies.getJSON("requests");
-    return $.inArray(route_info, requests) >= 0;
+    var requests = Cookies.getJSON("requests");
+    var ri_hash = hash_route_info(route_info);
+    return $.inArray(ri_hash, requests) >= 0;
 }
 
 function on_contact_click(e)
@@ -188,13 +146,12 @@ function on_contact_click(e)
 
 function on_requested_tab_click(e)
 {
-    viewing_req_tab = true;
-    var reqs = requests;
-    var trips_ul = $("#trips-list");
+    var reqs = Cookies.getJSON("requests");
+    var trips_ul= $("#trips-list");
     trips_ul.html("");
     for (var i = 0; i < reqs.length; i++)
     {
-        var route_info = reqs[i];
+        var route_info = Cookies.getJSON(reqs[i]);
         var card = create_card("requested-" + i, route_info);
         var template = $("#trip-template").html();
         var ri_hash = hash_route_info_with_date(route_info);
@@ -213,8 +170,6 @@ function on_requested_tab_click(e)
         {
             cbody.append(card);
         }
-
-        add_msg_modal_callback("requested-" + i, route_info);
     }
 
     $(".preview-route-btn").click(on_preview_route_click);
@@ -225,23 +180,8 @@ function on_requested_tab_click(e)
 
 function on_request_click(e)
 {
-    var route_info;
-    var index;
-    var in_trips_tab = false;
-
-    if (e.currentTarget.id.includes("requested"))
-    {
-        var reqs = requests;
-        index = +e.currentTarget.id.split("-")[2];
-        route_info = reqs[index];
-        in_trips_tab = true;
-    }
-    else
-    {
-        index = +e.currentTarget.id.split("-")[1];
-        route_info = cur_res[index];
-    }
-
+    var index = +e.currentTarget.id.split("-")[1];
+    var route_info = cur_res[index];
     var btn = $(e.currentTarget);
 
     if (btn.hasClass("requested-link"))
@@ -251,19 +191,7 @@ function on_request_click(e)
         btn.removeClass("red");
         btn.addClass("blue");
         btn.addClass("unrequested-link");
-        var rem = remove_request(route_info);
-        if (in_trips_tab)
-        {
-            if (rem == 0)
-            {
-                var ri_hash = hash_route_info_with_date(route_info);
-                $("#" + ri_hash + "-li").remove();
-            }
-            else
-            {
-                $("#card-requested-" + index).remove();
-            }
-        }
+        remove_request(route_info);
     }
     else
     {
@@ -279,21 +207,8 @@ function on_request_click(e)
 function on_preview_route_click(e)
 {
     $("#over-map").css("display", "block");
-
-    var trip_data;
-
-    if (e.currentTarget.id.includes("requested"))
-    {
-        var reqs = requests;
-        var index = +e.currentTarget.id.split("-")[2];
-        trip_data = reqs[index];
-    }
-    else
-    {
-        var index = +e.currentTarget.id.split("-")[1];
-        trip_data = cur_res[index];
-    }
-
+    var index = +e.currentTarget.id.split("-")[1];
+    var trip_data = cur_res[index];
     $(".card").removeClass("card-selected");
     $("#card-" + index).addClass("card-selected");
     var wps = new Array();
@@ -393,141 +308,6 @@ function prettify_rating(rating)
     return pretty_rating;
 }
 
-function create_msg_modal(ri_hash, ri)
-{
-    var template = $("#msg-modal-template").html();
-    var msg_modal = Mustache.to_html(template, {
-        id: ri_hash,
-        img: ri.img,
-        name: ri.name.split(" ")[0]
-    });
-    return msg_modal;
-}
-
-function hash_name(ri)
-{
-    var names = ri.name.split(" ");
-    var hash = names[0] + "-" + names[names.length - 1];
-    return hash;
-}
-
-function add_msg_modal_callback(index, route_info)
-{
-    var ri_hash = hash_route_info(route_info);
-
-    $("#card-" + index + " .new-msg-btn").click(function ()
-    {
-        var nh = hash_name(route_info);
-        var msg_modal = $("#msg-modal-" + nh);
-
-        if (msg_modal.length == 0)
-        {
-            var msg_modal_html = create_msg_modal(nh, route_info);
-            $("body").append(msg_modal_html);
-            $("#msg-modal-" + nh).modal({
-                ready: function(modal, trigger)
-                {
-                    being_shown[nh] = true;
-                },
-                complete: function()
-                {
-                    being_shown[nh] = false;
-                }
-            });
-            var msg_modal_id = "#msg-modal-" + nh;
-
-            $(msg_modal_id + " .msg-entry").keypress(function (e)
-            {
-                if (e.which == 13)
-                {
-                    if ($(".msg-modal").length == 1)
-                    {
-                        $("#msg-dropdown").html("");
-                    }
-
-                    e.preventDefault();
-                    var msg_item = create_msg_item(nh, route_info);
-                    $("#msg-dropdown").append(msg_item);
-                    $("#msg-stub-" + nh).click(function (e)
-                    {
-                        e.stopPropagation();
-                        $("#msg-modal-" + nh).modal("open");
-                        $("#msg-stub-" + nh + " .notif-svg").css("display",
-                            "none");
-                        if ($(".notif-collection:visible").length == 0)
-                        {
-                            $("#msg-notif-svg").css("display", "none");
-                        }
-                    });
-
-                    var msg = $(msg_modal_id + " .msg-entry").val();
-                    $(msg_modal_id + " .msg-body").append(
-                        "<p class='msg-box my-msg'>"
-                        + msg + "</p>");
-                    $(msg_modal_id + " .msg-body").scrollTop(
-                        $(msg_modal_id + " .msg-body")[0].scrollHeight);
-                    $(msg_modal_id + " .msg-entry").val("");
-                    $("#msg-stub-" + nh + " .msg-stub-preview").html();
-
-                    setTimeout(function()
-                    {
-                        if (is_requested(route_info))
-                        {
-                            var msg;
-                            if (Math.random() < 0.5)
-                            {
-                                msg = "In preparation for our ride, please make sure to wear deoderant";
-                            }
-                            else
-                            {
-                                msg = "Please dont bring food with you, I'm on a diet.";
-                            }
-
-                            $(msg_modal_id + " .msg-body").append(
-                                "<p class='msg-box their-msg'>"
-                                + msg + "</p>");
-                            $("#msg-stub-" + nh + " .msg-stub-preview").html(msg.slice(0, 35) + "...");
-                            if (!being_shown[nh])
-                            {
-                                $("#msg-stub-" + nh + " .notif-svg").css("display",
-                                    "block");
-                                $("#msg-notif-svg").css("display", "block");
-                            }
-                        }
-                    }, 20000);
-
-                    setTimeout(function()
-                    {
-                        var msg;
-                        if (Math.random() < 0.5)
-                        {
-                            msg = "Of course, no problem :D";
-                        }
-                        else
-                        {
-                            msg = "No, I hate dogs!"
-                        }
-
-                        $(msg_modal_id + " .msg-body").append(
-                            "<p class='msg-box their-msg'>"
-                            + msg + "</p>");
-                        $("#msg-stub-" + nh + " .msg-stub-preview").html(msg);
-                        if (!being_shown[nh])
-                        {
-                            $("#msg-stub-" + nh + " .notif-svg").css("display",
-                                "block");
-                            $("#msg-notif-svg").css("display", "block");
-                        }
-                    }, 2000);
-                }
-            });
-
-        }
-
-        $("#msg-modal-" + nh).modal("open");
-    });
-}
-
 function create_card(index, route_info)
 {
     var pretty_info = $.extend({}, route_info);
@@ -559,15 +339,12 @@ function create_card(index, route_info)
     return info;
 }
 
-function create_msg_item(nh, ri)
+function create_msg_item(ri)
 {
     var template = $("#msg-stub-template").html();
     var msg_item = Mustache.to_html(template, {
-        id: nh,
         img: ri.img,
-        name: ri.name.split(" ")[0],
-        ori: ri.ori.split(",")[0],
-        dst: ri.dst.split(",")[0]
+        name: ri.name.split(" ")[0]
     });
 
     return msg_item;
@@ -580,19 +357,11 @@ function filter_data()
     var date = $("#pickup-date").val();
     var day = +date.split("/")[1];
     var total_ok = 0;
-
-    if (viewing_req_tab)
-    {
-        viewing_req_tab = false;
-        $("#routes-tab").click();
-    }
-
-
     var results = $(data).filter(function(i, n)
     {
         var ok_day = day % 4 == n.day % 4;
-        var ok_ori = n.ori.toLowerCase().includes(ori.toLowerCase());
-        var ok_dst = n.dst.toLowerCase().includes(dst.toLowerCase());
+        var ok_ori = n.ori.includes(ori);
+        var ok_dst = n.dst.includes(dst);
         var ok_smoker = n.smoker * filters["smoking-filter"] >= 0;
         var ok_stops = n.trip.length - 2 <= filters["stops-filter"];
         var ok = ok_day && ok_ori && ok_dst && ok_smoker && ok_stops;
@@ -622,8 +391,14 @@ function filter_data()
     for (var i = 0; i < results.length; i++)
     {
         var card = create_card(i, results[i]);
+        var msg_item = create_msg_item(results[i]);
         $("#routes-div").append(card);
-        add_msg_modal_callback(i, results[i]);
+        $("#msg-dropdown").append(msg_item);
+        $("#msg-dropdown .collection-item").click(function (e)
+        {
+            e.stopPropagation();
+            $("#msg-modal").modal("open");
+        });
     }
 
     cur_res = results;
@@ -639,11 +414,11 @@ function filter_data()
 
 function init_cookies()
 {
-    // var requests = Cookies.get("requests");
-    // if (!requests)
-    // {
-    //     Cookies.set("requests", new Array());
-    // }
+    var requests = Cookies.get("requests");
+    if (!requests)
+    {
+        Cookies.set("requests", new Array());
+    }
 }
 
 function init_data()
@@ -670,20 +445,32 @@ function init_data()
 
 (function()
 {
-    var ori = $.getUrlVar("ori");
-    var dst = $.getUrlVar("dst");
-    $("#origin").val(ori);
-    $("#destination").val(dst);
     $(".datepicker").datepicker();
     $("ul.tabs").tabs();
+    $("#msg-modal").modal();
     $("#requested-tab-btn").click(on_requested_tab_click);
     $("#routes-tab").click(function()
     {
         $("#routes-div .preview-route-btn").click(on_preview_route_click);
         $("#routes-div .contact-btn").click(on_contact_click);
         $("#routes-div .request-btn").click(on_request_click);
-        viewing_req_tab = false;
-        filter_data();
+    });
+
+    $("#msg-entry").keypress(function (e)
+    {
+        if (e.which == 13)
+        {
+            e.preventDefault();
+            var msg = $("#msg-entry").val();
+            $("#msg-body").append("<p class='msg-box my-msg'>" + msg + "</p>");
+            $("#msg-body").scrollTop($("#msg-body")[0].scrollHeight);
+            $("#msg-entry").val("");
+            msg = "Of course, no problem :D";
+            setTimeout(function()
+            {
+                $("#msg-body").append("<p class='msg-box their-msg'>" + msg + "</p>");
+            }, 2000);
+        }
     });
 
     $(".dropdown-button").dropdown({

@@ -1,0 +1,325 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap&#45;datepicker/1.6.4/css/bootstrap&#45;datepicker.min.css"/> -->
+
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap&#45;datepicker/1.6.4/js/bootstrap&#45;datepicker.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script src="static/js/states.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.4/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.0/bootstrap-slider.min.js"></script>
+    <!-- <link rel="stylesheet" href="static/css/index.css"> -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.0/css/bootstrap-slider.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <link rel="stylesheet" href="static/css/main.css">
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <title>SeatWarmer</title>
+</head>
+
+<body>
+
+    <!-- <div id="msg&#45;modal" class="modal modal&#45;fixed&#45;footer"> -->
+    <!--  -->
+    <!--     <!&#45;&#45; Modal content&#45;&#45;> -->
+    <!--     <div class="modal&#45;content"> -->
+    <!--         <div class="msg&#45;header"> -->
+    <!--             <img src="static/faces/Julia_Ormond/Julia_Ormond_0001.jpg" -->
+    <!--             alt="" class="circle"> -->
+    <!--             <span id="msg&#45;name">Julia</span> -->
+    <!--         </div> -->
+    <!--         <div id="msg&#45;body"> -->
+    <!--         </div> -->
+    <!--     </div> -->
+    <!--     <div class="modal&#45;footer"> -->
+    <!--         <form> -->
+    <!--             <div class="input&#45;field col s6"> -->
+    <!--                 <input id="msg&#45;entry" type="text" class="validate" -->
+    <!--                 placeholder="Type a message"> -->
+    <!--             </div> -->
+    <!--         </form> -->
+    <!--     </div> -->
+    <!-- </div> -->
+
+
+    <nav class="search-nav">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">
+                <i class="fa fa-fire fa-1x" aria-hidden="true"></i>
+            </a>
+        <form>
+            <div class="input-field inline">
+                <input placeholder="From" id="origin" type="text"
+                class="autocomplete">
+                <label class="label-icon" for="origin">
+                    <i class="large material-icons">my_location</i>
+                </label>
+            </div>
+            <div class="input-field inline">
+                <input placeholder="To" id="destination" type="text"
+                class="autocomplete">
+                <label class="label-icon" for="destination">
+                    <i class="large material-icons">room</i>
+                </label>
+            </div>
+            <div class="input-field inline">
+                <input placeholder="05/20/2017" id="pickup-date" type="text" class="validate datepicker"
+                value="05/20/2017">
+                <label class="label-icon" for="pickup-date">
+                    <i class="large material-icons">today</i>
+                </label>
+            </div>
+        </form>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>
+                <a href="#" class="waves-effect dropdown-button"
+                    data-activates="msg-dropdown" id="msg-dropdown-btn">
+                    <i class="material-icons">message</i>
+                    <svg class="notif-svg" id="msg-notif-svg">
+                        <circle cx="5" cy="5" r="5"></circle>
+                    </svg>
+                </a>
+            </li>
+            <li><a href="#" class="waves-effect">Log out</a></li>
+        </ul>
+
+        </div>
+    </nav>
+
+    <ul id="msg-dropdown" class="dropdown-content">
+        <li class="no-msgs-yet">
+            No messages yet...
+        </li>
+    </ul>
+
+    <!-- <div class="tap&#45;target" data&#45;activates="stops&#45;filter"> -->
+    <!--     <div class="tap&#45;target&#45;content"> -->
+    <!--         <h5>Title</h5> -->
+    <!--         <p>A bunch of text</p> -->
+    <!--     </div> -->
+    <!-- </div> -->
+
+    <div class="content">
+        <div id="route-info-div">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                    <li>
+                    <div id="stops-filter" class="dropdown">
+                        <button class="btn-sm btn-link dropdown-toggle"
+                            id="stops-btn"
+                            type="button" data-toggle="dropdown">
+                            Stops: <span id="stops-name">Any</span> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu filter-menu">
+                            <li><a href="#" id="stops-any">Any</a></li>
+                            <li><a href="#" id="stops-none">Non-stop</a></li>
+                            <li><a href="#" id="stops-1">Up to 1 stop</a></li>
+                            <li><a href="#" id="stops-2">Up to 2 stops</a></li>
+                        </ul>
+                    </div>
+                    </li>
+                    <li>
+                    <div id="smoking-filter" class="dropdown">
+                        <button class="btn-sm btn-link dropdown-toggle"
+                            type="button" data-toggle="dropdown">
+                            Smokes: <span id="smoking-name">Don't care</span> <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu filter-menu">
+                            <li><a href="#" id="smoking-any">Don't care</a></li>
+                            <li><a href="#" id="smoking">Yes</a></li>
+                            <li><a href="#" id="non-smoking">No</a></li>
+                        </ul>
+                    </div>
+                    </li>
+                    <li>
+                    <div id="sort-by" class="dropdown">
+                        <button class="btn-sm btn-link dropdown-toggle"
+                            type="button" data-toggle="dropdown">
+                            Sort by<span id="sort-name"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#" id="sortby-price-low">Price</a>
+                            </li>
+                            <li>
+                                <a href="#" id="sortby-dur-low">Duration</a>
+                            </li>
+                            <li>
+                                <a href="#" id="sortby-rating">Rating - highest first</a>
+                            </li>
+                        </ul>
+                    </div>
+                    </li>
+
+                    </ul>
+                </div>
+            </nav>
+
+            <ul class="tabs tabs-fixed-width">
+                <li class="tab col s3"><a class="active" href="#routes-div"
+                    id="routes-tab">Search Results</a></li>
+                <li class="tab col s3"><a href="#requested-routes-div" id="requested-tab-btn">Your Trips</a></li>
+            </ul>
+            <!-- <div id="no&#45;routes&#45;found"> -->
+            <!--     <h4>No Routes Found</h4> -->
+            <!--     <i id="frown" class="fa fa&#45;frown&#45;o fa&#45;5x" aria&#45;hidden="true"></i> -->
+            <!-- </div> -->
+            <div class="routes" id="routes-div">
+            </div>
+            <div class="routes" id="requested-routes-div">
+                <ul class="collapsible" id="trips-list" data-collapsible="expandable">
+                </ul>
+            </div>
+        </div>
+        <div id="map-container">
+			<!-- <h3>Map</h3> -->
+            <div id="map-wrapper">
+                <div id="map"></div>
+                <div id="over-map">
+                    <!-- <i class="fa fa&#45;cog fa&#45;spin fa&#45;5x fa&#45;fw loading&#45;gif"></i> -->
+                     <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script id="trip-template" type="text/template">
+    <li id="{{id}}-li">
+        <div class="collapsible-header">
+            <span class="trip-ori">{{ori}}</span>
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            <span class="trip-dst">{{dst}}</span>
+            <span class="trip-date">
+                <i class="large material-icons">today</i>
+                {{date}}
+            </span>
+        </div>
+        <div class="collapsible-body" id="{{id}}">
+        </div>
+    </li>
+    </script>
+
+    <script id="card-template" type="text/template">
+    <div class="card horizontal" id="card-{{index}}">
+        <div class="card-stacked">
+            <div class="card-content">
+                <img class="card-img circle" src="{{img}}"/>
+                <span class="card-title">
+                    {{name}}
+                    <a href="#" class="new-msg-btn">
+                        <i class="material-icons">message</i>
+                    </a>
+                </span>
+                <div class="card-car-model">
+                    <i class="fa fa-car" aria-hidden="true"></i>
+                    {{car_name}}, {{car_year}}
+                </div>
+                <div class="card-pickup-time">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    {{time}}
+                </div>
+                <div class="card-total-driving-time">
+                    <i class="fa fa-hourglass" aria-hidden="true"></i>
+                    {{duration}}
+                </div>
+                <div class="card-cost">
+                    <i class="fa fa-usd" aria-hidden="true"></i>
+                    {{cost}}
+                </div>
+                <div class="card-stars">
+                    {{{rating}}}
+                </div>
+            </div>
+            <div class="card-action">
+                <a href="#" class="card-btn btn request-btn {{requested_css}}" id="request-{{index}}">
+                    {{requested_text}}</a>
+                <a href="#" class="card-btn btn preview-route-btn unrequested-link" id="preview-{{index}}">
+                    Route
+                </a>
+            </div>
+        </div>
+    </div>
+    </script>
+
+    <a href="#" class="card-btn btn view-profile-btn unrequested-link" id="profile-{{index}}"
+        style="display: none;">
+        Profile
+    </a>
+
+
+    <script id="msg-stub-template" type="text/template">
+    <li id='msg-stub-{{id}}'>
+        <img src="{{img}}" alt="" class="circle">
+        <div class="msg-stub-body">
+            <div class="msg-stub-name">
+                {{name}}
+                <svg class="notif-svg notif-collection">
+                    <circle cx="5" cy="5" r="5"></circle>
+                </svg>
+            </div>
+            <div class="msg-stub-route">
+                {{ori}} to {{dst}}
+            </div>
+            <div class="msg-stub-preview">
+            </div>
+        </div>
+    </li>
+    </script>
+
+    <script id="msg-modal-template" type="text/template">
+    <div id="msg-modal-{{id}}" class="modal modal-fixed-footer msg-modal">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="msg-header">
+                <img src="{{img}}"
+                alt="" class="circle">
+                <span class="msg-name">{{name}}</span>
+            </div>
+            <div class="msg-body">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <form>
+                <div class="input-field col s6">
+                    <input type="text" class="msg-entry"
+                    placeholder="Type a message">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </script>
+
+    <script src="static/js/main.js"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd6kc3PzQCNN2UemPe_fr3JkHFxbqSGDY&callback=initMap">
+        </script>
+
+</body>
+
+</html>

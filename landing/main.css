@@ -43,46 +43,15 @@ nav a {
     color: black;
 }
 
-#msg-dropdown li {
-    /* height: 100px; */
-    height: 100px !important;
-}
-
-#msg-dropdown .collection-item .title {
-    font-weight: bold;
-}
-
-.msg-stub-preview {
-    color: grey;
-}
-
-.msg-stub-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    padding-top: 10px;
-}
-
-.msg-stub-route {
-    height: 30px;
-}
-
-.msg-stub-body {
-    height: 100%;
+#msg-dropdown .collection-item {
+    height: 100px;
 }
 
 #msg-dropdown .circle {
-    height: 50px !important;
-    width: 50px !important;
-    float: left;
-    margin: 10px;
+    vertical-align: center;
+    height: 80px !important;
+    width: 80px !important;
 }
-
-.no-msgs-yet {
-    font-size: 1.2rem;
-    padding-top: 40px !important;
-    padding-left: 30px !important;
-}
-
 
 .notif-svg {
     height: 10px !important;
@@ -90,13 +59,10 @@ nav a {
     position: absolute;
     fill: #ff3333;
     transform: translate(17px, -46px);
-    display: none;
 }
 
 .notif-collection {
-    position: relative;
-    float: right;
-    transform: translate(-20px, 0px);
+    transform: translate(0, 0);
 }
 
 #nav-mobile {
@@ -175,16 +141,6 @@ nav a {
     flex: 1 auto;
 }
 
-.new-msg-btn {
-    float: right;
-    color: royalblue;
-}
-
-.new-msg-btn:focus {
-    color: royalblue;
-    text-decoration: none;
-}
-
 #cursor_types_group {
     display: none;
 }
@@ -206,7 +162,7 @@ nav .input-field input {
     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.3) !important;
     background: white;
     color: rgba(0, 0, 0, 0.7);
-    width: 200px;
+    width: 214px;
     height: 50%;
     transform: translateY(50%);
     border-radius: 3px;
@@ -312,7 +268,7 @@ nav label i {
     border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
 }
 
-.msg-body {
+#msg-body {
     padding-top: 40px;
     overflow-y: scroll;
     height: calc(100% - 120px);
@@ -320,7 +276,7 @@ nav label i {
     /* height: 200px; */
 }
 
-.msg-name {
+#msg-name {
     display: inline-block;
     font-size: 2rem;
     padding-left: 10px;
@@ -452,7 +408,6 @@ nav label i {
 
 .card-btn {
     /* width: 32% !important; */
-    width: 48% !important;
     text-align: center !important;
 }
 

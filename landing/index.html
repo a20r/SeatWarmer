@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--Amauche Emenari
+Collaborators: I discussed this assignment Alex Waller.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<title>SeatWarmer</title>
+<link rel="stylesheet" href="index.css">
+<script src="jquery.min.js"></script>
+
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_pxS8OwOYAMs7tJef6aAVYUbCgu5QSqU &libraries=places&callback=initAutocomplete"></script>
+<script src="bootstrap.js"></script>
+<script src="seat_warm.js"></script>
+<script src="materialize.min.js"></script>
+<link rel="stylesheet" href="materialize.min.css">
+<link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=978370115599993";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="headerHolder">
+<img id="img-full-main" src="maxresdefault2.jpg">
+<div class="headerBar">
+<div id='company'><a href="index.html"><span>SeatWarmer</span></a></div>
+<div id='login'></div>
+<div id='login-btn' class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+</div>
+</div>
+<div class="container2">
+<nav class="search-nav">
+<div class="nav-wrapper">
+            <a href="#" class="brand-logo">
+                <i class="fa fa-fire fa-1x" aria-hidden="true"></i>
+            </a>
+        <form>
+            <div class="input-field inline">
+                <input placeholder="From" id="origin" class="autocomplete" value="Boston" type="text">
+                <label class="label-icon active" for="origin">
+                    <i class="large material-icons">my_location</i>
+                </label>
+            </div>
+            <div class="input-field inline">
+                <input placeholder="To" id="destination" class="autocomplete" value="Miami" type="text">
+                <label class="label-icon active" for="destination">
+                    <i class="large material-icons">room</i>
+                </label>
+            </div>
+            <div class="input-field inline">
+                <input placeholder="05/20/2017" id="pickup-date" class="validate datepicker hasDatepicker valid" value="05/20/2017" type="text">
+                <label class="label-icon active" for="pickup-date">
+                    <i class="large material-icons">today</i>
+                </label>
+            </div>
+        </form>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li>
+                <a style="" href="#" class="waves-effect dropdown-button" data-activates="msg-dropdown">
+                    <i class="material-icons">message</i>
+                    <svg class="notif-svg">
+                        <circle cx="5" cy="5" r="5"></circle>
+                    </svg>
+                </a><ul style="white-space: nowrap; position: absolute; top: 64.5px; left: 1086px; opacity: 1; display: none;" id="msg-dropdown" class="collection dropdown-content">
+    </ul>
+            </li>
+            <li><a href="#" class="waves-effect">Log out</a></li>
+        </ul>
+
+        </div>
+        </nav>
+</div> 
+<div class="footerBar">
+</div>
+
+
+</body>
+
+</html>

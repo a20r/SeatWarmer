@@ -1,0 +1,164 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.min.css"/>
+
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="main.css">
+	
+    <title>SeatWarmer</title>
+</head>
+
+<body>
+<div class="headerHolder">
+<div class="headerBar">
+<div id='company'><a href="index.html"><span>SeatWarmer</span></a></div>
+<div id='login'><a href=""><span>Welcome, Eric</span></a></div>
+</div>
+</div>
+    <div class="container">
+    <div id="input-row" class="row">
+        <div class="col-xs-12">
+            <form role="form" class="form-inline">
+            <div class="form-group">
+                <label for="origin">Origin</label>
+                <input type="text" id="origin" class="form-control" value="Boston"/>
+            </div>
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" class="form-control" value="Miami"/>
+            </div>
+            <div class="form-group">
+                <label for="pickup-date">Pickup Date</label>
+                <input type="text" id="pickup-date" class="form-control datepicker" value="06-09-2017"/>
+            </div>
+            <input type="button" class="form-control btn btn-primary" value="Search" id="search-btn"/>
+            </form>
+        </div>
+    </div>
+
+    <div class="content row">
+        <div class="routes col-xs-4">
+            <h3>Routes</h3>
+            <div class="card card-selected">
+                <img class="card-img" src="imgs/facetile_140.jpeg"/>
+                <div class="card-name">
+                    Alex Wallar
+                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+					<span class="card-stars">
+                    <span>&starf;</span>
+                    <span>&starf;</span>
+                    <span>&starf;</span>
+                    <span>&starf;</span>
+                    <span>&star;</span>
+                </span>
+                </div>
+                <div class="card-car-model">Toyota Prius</div>
+                <div class="card-free-seats">4 seats available</div>
+                <div class="card-pickup-time">10:00 am</div>
+
+            </div>
+
+            <div class="card card-selected">
+                <img class="card-img" src="imgs/facetile_144.jpeg"/>
+                <div class="card-name">
+                    Sterling Archer
+                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+					                <span class="card-stars">
+                    <span>&starf;</span>
+                    <span>&starf;</span>
+                    <span>&starf;</span>
+                    <span>&star;</span>
+                    <span>&star;</span>
+                </span>
+                </div>
+                <div class="card-car-model">Ford Fiesta</div>
+                <div class="card-free-seats">3 seats available</div>
+                <div class="card-pickup-time">06:00 am</div>
+
+            </div>
+            <div class="card card-selected">
+                <img class="card-img" src="imgs/facetile_175.jpeg"/>
+                <div class="card-name">
+                    Ronaldo Fletching
+                    <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+					                <span class="card-stars">
+                    <span>&starf;</span>
+                    <span>&star;</span>
+                    <span>&star;</span>
+                    <span>&star;</span>
+                    <span>&star;</span>
+                </span>
+                </div>
+                <div class="card-car-model">Ferrari Enzo</div>
+                <div class="card-free-seats">1 seats available</div>
+                <div class="card-pickup-time">11:00 am</div>
+
+            </div>
+
+
+        </div>
+        <div class="col-xs-8">
+			<h3>Map</h3>
+            <div id="map"></div>
+        </div>
+    </div>
+    </div>
+
+    <div id="msg-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Send Message</h4>
+        </div>
+        <div class="modal-body">
+            <form role="form">
+            <div class="form-group">
+                <!-- <label for="subject">S</label> -->
+                <input type="text" class="form-control"
+                id="subject" placeholder="Subject"/>
+            </div>
+            <div class="form-group">
+                <!-- <label for="msg">Body</label> -->
+                <input type="text" class="form-control"
+                id="msg" placeholder="Body" style="height: 100px;"/>
+            </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary"
+                id="send-btn">
+                Send
+            </button>
+        </div>
+        </div>
+
+    </div>
+    </div>
+    <script src="main.js"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAd6kc3PzQCNN2UemPe_fr3JkHFxbqSGDY&callback=initMap">
+        </script>
+
+</body>
+
+</html>

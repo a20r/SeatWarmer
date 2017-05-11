@@ -1,0 +1,39 @@
+<div class="card horizontal" id="card-{{index}}">
+    <div class="card-stacked">
+        <div class="card-content">
+            <img class="card-img circle" src="{{img}}"/>
+            <span class="card-title">
+                {{name}}
+            </span>
+            <div class="card-car-model">
+                <i class="fa fa-car" aria-hidden="true"></i>
+                {{car_name}}, {{car_year}}
+            </div>
+            <div class="card-pickup-time">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                {{time}}
+            </div>
+            <div class="card-total-driving-time">
+                <i class="fa fa-hourglass" aria-hidden="true"></i>
+                {{duration}}
+            </div>
+            <div class="card-cost">
+                <i class="fa fa-usd" aria-hidden="true"></i>
+                {{cost}}
+            </div>
+            <div class="card-stars">
+                {{{rating}}}
+            </div>
+        </div>
+        <div class="card-action">
+            <a href="#" class="card-btn btn request-btn {{requested_css}}" id="request-{{index}}">
+                {{requested_text}}</a>
+            <a href="#" class="card-btn btn view-profile-btn unrequested-link" id="profile-{{index}}">
+                Profile
+            </a>
+            <a href="#" class="card-btn btn preview-route-btn unrequested-link" id="preview-{{index}}">
+                Route
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--Amauche Emenari
+Collaborators: I discussed this assignment Alex Waller.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<title>SeatWarmer</title>
+<link rel="stylesheet" href="index.css">
+<script src="jquery.min.js"></script>
+<script src="bootstrap.js"></script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_pxS8OwOYAMs7tJef6aAVYUbCgu5QSqU &callback=initMap"></script>
+</head>
+
+<body>
+<div class="headerHolder">
+<div class="headerBar">
+<div id='company'><a href="index.html"><span>SeatWarmer</span></a></div>
+<div id='login'><a href=""><span>Welcome, Eric</span></a></div>
+</div>
+</div>
+    <script>
+      function initMap() {
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          scrollwheel: false,
+          zoom: 8
+        });
+      }
+
+    </script>
+
+<div class="container2">
+<div class="leftContent">
+<h2>Trip Map</h2>
+<div id="map" height="450"></div>
+
+<iframe
+  width="95%"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB_pxS8OwOYAMs7tJef6aAVYUbCgu5QSqU 
+    &q=Boston+MA" >
+</iframe>
+</div>
+
+
+<div class="rightContent">
+<h2>Trip Details</h2>
+<div class='profItem'><span class='profLabel'>Driver:</span> <span class='profValue'>Sandra Mullens</span></div>
+<div class='profItem'><span class='profLabel'>Passenger 1:</span> <span class='profValue'>Eric Holder</span></div>
+<div class='profItem'><span class='profLabel'>Passenger 2:</span> <span class='profValue'>Lisa Holder</span></div>
+<div class='profItem'><span class='profLabel'>Est. Departure:</span> <span class='profValue'>7/1/2017 4:15pm</span></div>
+<div class='profItem'><span class='profLabel'>Est. Duration:</span> <span class='profValue'>4hrs 37mins</span></div>
+</div>
+
+</div> 
+<div class="footerBar">
+</div>
+
+
+</body>
+
+</html>
