@@ -551,6 +551,42 @@ function create_card(index, route_info)
         pretty_info.requested_text = "Cancel";
     }
 
+    var trip = new Array();
+    var trip_html = "";
+    for (var i = 0; i < route_info.trip.length; i++)
+    {
+        trip.push(route_info.trip[i].split(",")[0]);
+        if (i > 0 && i < route_info.trip.length - 1)
+        {
+            trip_html += '<br><span class="waypoint">';
+            trip_html += '<i class="fa fa-arrow-right" aria-hidden="true"></i>';
+            trip_html += route_info.trip[i].split(",")[0];
+            trip_html += '</span>';
+        }
+        else if (i == 0)
+        {
+            trip_html += route_info.trip[i].split(",")[0];
+        }
+        else
+        {
+            trip_html += '<br><i class="fa fa-arrow-right" aria-hidden="true"></i>';
+            trip_html += route_info.trip[i].split(",")[0];
+        }
+    }
+
+    if (trip.length > 2)
+    {
+        var trip_html = trip.join(
+                '<br>&nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i> ');
+    }
+
+    if (trip.length == 2)
+    {
+        var trip_html = trip.join(
+            ' <i class="fa fa-arrow-right" aria-hidden="true"></i> ');
+    }
+
+    pretty_info.trip_html = trip_html;
     pretty_info.name = first;
     pretty_info.cost = Math.floor(route_info.cost);
     pretty_info.rating = prettify_rating(route_info.rating);
@@ -662,7 +698,7 @@ function init_data()
         cities = cities_json;
         $("input.autocomplete").autocomplete({
             source: cities["cities"],
-            autoFocus: true,
+            autoFocus: false,
             delay: 0,
         });
     });

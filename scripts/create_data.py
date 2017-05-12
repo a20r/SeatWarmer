@@ -44,7 +44,7 @@ def get_city_name(row):
 
 
 def create_trip(ori, dst):
-    n_waypoints = random.randint(0, 2)
+    n_waypoints = random.randint(0, 1)
     waypoints = list()
     wp_rows = list()
     ori_name = get_city_name(ori)

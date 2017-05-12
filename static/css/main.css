@@ -176,7 +176,7 @@ nav a {
 }
 
 .new-msg-btn {
-    float: right;
+    /* float: right; */
     color: royalblue;
 }
 
@@ -452,7 +452,7 @@ nav label i {
 
 .card-btn {
     /* width: 32% !important; */
-    width: 48% !important;
+    width: 32% !important;
     text-align: center !important;
 }
 
@@ -486,6 +486,60 @@ nav label i {
     width: auto;
 }
 
+.card-table td {
+    padding-left: 8px;
+    padding-top: 6px;
+}
+
+.trip-details {
+    display: inline-block;
+    text-align: right;
+    vertical-align: top;
+    width: 24%;
+    float: right;
+}
+
+.card-duration {
+    line-height: 20px;
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.card-title {
+    /* display: inline-block !important; */
+    line-height: 28px !important;
+    margin-bottom: 0px !important;
+    /* width: 24%; */
+    /* vertical-align: top; */
+    /* text-align: right; */
+    /* margin-bottom: 8px; */
+}
+
+.card-trip {
+    display: inline-block !important;
+    width: 75% !important;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 300;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.card-rating {
+    font-size: 1.3em;
+}
+
+.user-table {
+    width: auto;
+    margin-top: 15px !important;
+}
+
+.user-table td {
+    padding: 0;
+    padding-left: 8px !important;
+    padding-top: 6px !important;
+}
+
 .progress {
     position: relative;
     top: 50%;
@@ -501,8 +555,8 @@ nav label i {
 }
 
 .card-img {
-    height: 150px;
-    width: 150px;
+    height: 120px;
+    /* width: 100px; */
     position: relative;
     float: left;
     margin-right: 10px;
