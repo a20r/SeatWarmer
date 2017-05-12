@@ -1,8 +1,5 @@
     $(document).ready(function() {
-    var input_origin = document.getElementById('origin');
-    var searchBox_origin = new google.maps.places.SearchBox(input_origin);
-    var input_dest = document.getElementById('destination');
-    var searchBox_destination = new google.maps.places.SearchBox(input_dest);
+
     
     //When the user enters a text box, the text highlights
     $("input:text").focus(function() { $(this).select(); } );
@@ -52,7 +49,7 @@
 			xfbml: true,
 			version: 'v2.9' 
 		}); 
-		checkLoginState();
+		//checkLoginState();
 		}
   }(document, 'script', 'facebook-jssdk'));
 
@@ -117,7 +114,7 @@ function fb_logout(){
 }
 function updateFBStatus(isLoggedIn){
     if (isLoggedIn) {
-        $('.waves-effect').show()
+	$('.waves-effect').css('display', 'inline-block')
         $('.button--facebook').hide();
         showUserName();
         showProfilePicture();
