@@ -7,9 +7,13 @@ body {
     width: 54%;
     min-width: 914px;
 }
-div.maincontent{
-    
+div.maincontent{ 
 }
+
+#search-btn {
+    background-color: #7595f3;
+}
+
 .search-nav {
     border-radius:4px ;
     width: 875px;
@@ -22,9 +26,23 @@ form {
     padding-left: 65px !important;
     display: inline-block;
 }
+
 .swlogo{
-    color:#4868c8;
+    color: black;
+    font-weight: 300;
+    /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; */
 }
+
+#about-div {
+    display: none;
+}
+
+#blurb {
+    font-size: 25px;
+    vertical-align: middle;
+    font-style: italic;
+}
+
 #mainsearch{
     width: 882px;
     margin: auto;

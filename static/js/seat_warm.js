@@ -5,13 +5,12 @@ var cities;
     $.getJSON("cities", function(cities_json)
     {
         cities = cities_json;
-        console.log(cities);
-        console.log($("input.autocomplete"));
         $("input.autocomplete").autocomplete({
             source: cities["cities"],
-            autoFocus: true,
+            autoFocus: false,
             delay: 0,
         });
+        console.log($("input.autocomplete"));
     });
 
     // var input_origin = document.getElementById('origin');

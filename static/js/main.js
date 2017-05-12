@@ -440,14 +440,17 @@ function add_msg_modal_callback(index, route_info)
             {
                 if (e.which == 13)
                 {
-                    if ($(".msg-modal").length == 1)
-                    {
-                        $("#msg-dropdown").html("");
-                    }
-
                     e.preventDefault();
                     var msg_item = create_msg_item(nh, route_info);
-                    $("#msg-dropdown").append(msg_item);
+
+                    if ($(".no-msgs-yet").length > 0)
+                    {
+                        $("#msg-dropdown").html(msg_item);
+                    }
+                    else
+                    {
+                        $("#msg-dropdown").append(msg_item);
+                    }
                     $("#msg-stub-" + nh).click(function (e)
                     {
                         e.stopPropagation();
