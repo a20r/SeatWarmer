@@ -142,7 +142,7 @@ function fb_logout(){
 }
 function updateFBStatus(isLoggedIn){
     if (isLoggedIn) {
-        $('.waves-effect').show()
+	$('.waves-effect').css('display','inline-block');
         $('.button--facebook').hide();
         showUserName();
         showProfilePicture();
