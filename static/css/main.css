@@ -481,6 +481,11 @@ nav label i {
 .card {
 }
 
+.card-table
+{
+    width: auto;
+}
+
 .progress {
     position: relative;
     top: 50%;
@@ -502,10 +507,6 @@ nav label i {
     float: left;
     margin-right: 10px;
     /* border-radius: 5px; */
-}
-
-.card-name {
-    font-weight: bold;
 }
 
 /* canvas, html, body { */

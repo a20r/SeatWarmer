@@ -229,11 +229,32 @@
             <div class="card-content">
                 <img class="card-img circle" src="{{img}}"/>
                 <span class="card-title">
-                    {{name}}
+                    ${{cost}}
                     <a href="#" class="new-msg-btn">
                         <i class="material-icons">message</i>
                     </a>
                 </span>
+                <table class="card-table">
+                    <tbody>
+                    <tr>
+                    <td><i class="fa fa-user" aria-hidden="true"></i></td>
+                    <td>{{name}}</td>
+                    </tr>
+                    <tr>
+                    <td><i class="fa fa-user" aria-hidden="true"></i></td>
+                    <td>{{name}}</td>
+                    </tr>
+                    <tr>
+                    <td><i class="fa fa-user" aria-hidden="true"></i></td>
+                    <td>{{name}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--
+                <div class="card-name">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    {{name}}
+                </div>
                 <div class="card-car-model">
                     <i class="fa fa-car" aria-hidden="true"></i>
                     {{car_name}}, {{car_year}}
@@ -246,13 +267,10 @@
                     <i class="fa fa-hourglass" aria-hidden="true"></i>
                     {{duration}}
                 </div>
-                <div class="card-cost">
-                    <i class="fa fa-usd" aria-hidden="true"></i>
-                    {{cost}}
-                </div>
                 <div class="card-stars">
                     {{{rating}}}
                 </div>
+                -->
             </div>
             <div class="card-action">
                 <a href="#" class="card-btn btn request-btn {{requested_css}}" id="request-{{index}}">
